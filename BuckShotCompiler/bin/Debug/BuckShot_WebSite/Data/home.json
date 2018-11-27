@@ -1,0 +1,16 @@
+{
+	"Q&A" : [
+		{
+			"Q" : "Qu'est ce que BuckShot ?",
+			"A" : "BuckShot est un langage de programmation vous permettant de créer des sites web."
+		},
+		{
+			"Q" : "Comment sa marche ?",
+			"A" : "Pour créer des sites avec BuckShot, il vous suffit d'écrire du code source qui sera ensuite compilé en HTML/CSS/JS."
+		},
+		{
+			"Q" : "Par ou commencer ?",
+			"A" : "Vous pouvez essayer BuckShot dès maintenant en suivant ce guide de démarrage rapide."
+		}
+	]
+}

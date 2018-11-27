@@ -1,0 +1,7 @@
+include Basics/menus.bk
+include Basics/background.bk
+include Basics/articles.bk
+
+page Documentation
+	Menu = new TopMenu
+end

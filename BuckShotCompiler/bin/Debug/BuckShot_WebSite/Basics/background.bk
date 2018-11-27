@@ -1,0 +1,7 @@
+object BackgroundImage
+	type = img
+	position = absolute
+	z_index = -1
+	width = 100%
+	left = 0px
+end

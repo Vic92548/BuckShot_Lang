@@ -1,0 +1,5 @@
+include documentation.bk
+
+page Downloads
+	Menu = new TopMenu
+end

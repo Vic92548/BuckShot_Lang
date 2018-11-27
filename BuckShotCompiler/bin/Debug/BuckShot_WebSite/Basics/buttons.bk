@@ -1,0 +1,13 @@
+object Image
+	type = img
+end
+
+object Basic_Button
+	type = a
+	color = #eeeeee
+	font_size = 24px
+	text_align = center
+	height = 60px
+	line_height = 60px
+	text_decoration = none
+end

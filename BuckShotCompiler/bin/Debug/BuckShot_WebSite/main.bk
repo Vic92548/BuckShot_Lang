@@ -1,0 +1,19 @@
+include downloads.bk
+
+page Home
+	ImagesDatas = [top#0px|source#"../images/background.jpg",top#1080px|source#"../images/background2.jpg"]
+	ImageGroup = Group(BackgroundImage,ImagesDatas,left#0px)
+	ImageGroup0.position = fixed
+	ImageGroup0.z_index = -2
+	ImageGroup0.filter = blur(5px)
+	ImageGroup0.left = -1%
+	ImageGroup0.width = 102%
+	Menu = new TopMenu
+	LocalTitleBox = new TitleBox
+	LocalTitleBox->LocalTitle.content = BUCKSHOT
+	LocalTitleBox->LocalDesc.content = "une nouvelle façons de créer des sites web"
+	LocalTitleBox.position = absolute
+	LocalTitleBox.top = 200px
+	LocalContentBox = new ContentBox
+	LocalContentBox.top = 800px
+end

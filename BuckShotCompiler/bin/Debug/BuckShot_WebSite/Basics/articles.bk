@@ -1,0 +1,60 @@
+object ArticleProperties
+	background_color = #34495e
+end
+object Text
+	type = p
+	color = #eeeeee
+end
+
+object HugeText:Text
+	width = 100%
+	text_align = center
+end
+
+object UnderTitre:HugeText
+	type = h2
+	font_size = 40px
+end
+
+object Titre:HugeText
+	type = h1
+	font_size = 80px
+end
+
+object TitleBox
+	type = div
+	width = 100%
+	LocalTitle = new Titre
+	LocalDesc = new UnderTitre
+end
+
+object Question:Text
+	type = p
+	margin_left = 20%
+	font_size = UnderTitre.font_size
+	width = 60%
+end
+
+object Answer:Question
+	type = p
+	font_size = 17px
+	margin_left = 50%
+end
+
+object Q&A
+	type = div
+	LocalTextA = new Question
+	LocalTextA.content = Question
+	LocalTextB = new Answer
+	LocalTextB.content = "Super réponse hehehehe"
+end
+
+object ContentBox
+	type = section
+	width = 100%
+	height = 400px
+	position = absolute
+	background_color = ArticleProperties.background_color
+	ButtonsArray = [background_color#blue|LocalTextA.content#"Qu'est ce que BuckShot ?,-,-]
+	MenuAAA = Group(Q&A,ButtonsArray,width#60%)
+end
