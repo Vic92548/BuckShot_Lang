@@ -8,6 +8,7 @@
     <RootNamespace>BuckShotCompiler</RootNamespace>
     <AssemblyName>BuckShotCompiler</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <ReleaseVersion>1.0.0.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,20 +35,26 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebObject.cs" />
-    <Compile Include="page.cs" />
-    <Compile Include="HTML-FILE.cs" />
-    <Compile Include="FILE.cs" />
     <Compile Include="Compiler.cs" />
-    <Compile Include="HTMLObject.cs" />
-    <Compile Include="CSSObject.cs" />
     <Compile Include="SyntaxTools.cs" />
     <Compile Include="BasicFunctions.cs" />
     <Compile Include="Tools.cs" />
     <Compile Include="Analyzer.cs" />
-    <Compile Include="ExternalFonctionBridge.cs" />
     <Compile Include="WebProject.cs" />
     <Compile Include="WebDataStruct.cs" />
+    <Compile Include="File\HTML.cs" />
+    <Compile Include="File\Base.cs" />
+    <Compile Include="WebObject\Base.cs" />
+    <Compile Include="WebObject\Page.cs" />
+    <Compile Include="LangObject\CSS.cs" />
+    <Compile Include="LangObject\HTML.cs" />
+    <Compile Include="LangObject\Base.cs" />
+    <Compile Include="LangObject\Tools.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="File\" />
+    <Folder Include="WebObject\" />
+    <Folder Include="LangObject\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

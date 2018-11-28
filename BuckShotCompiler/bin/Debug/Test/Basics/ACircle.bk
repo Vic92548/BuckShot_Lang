@@ -1,0 +1,7 @@
+object Circle
+	type = div
+	background_color = green
+	width = 20px
+	height = 20px
+	border_radius = 20px
+end

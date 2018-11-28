@@ -1,0 +1,10 @@
+object Title
+	type = h1
+	content = "This is an awesome title"
+	color = rgb(20,200,20)
+end
+
+
+page Home
+	HomeTitle = new Title
+end

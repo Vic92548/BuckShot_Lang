@@ -7,8 +7,7 @@ namespace BuckShotCompiler
     {
         public static void Main(string[] args)
         {
-            //CheckCommand("c /Users/victor/Desktop/BuckShotCompanion/Source/main.bk","/Users/victor/Desktop/BuckShotCompanion/Source/main.bk", new List<string>(),0);
-            CheckCommand(Console.ReadLine(), "", new List<string>(), 0);
+            CheckCommand("", "", new List<string>(), 0);
         }
 
         public static void CompileAFile(string File, List<string> CommandHistory, int HistoryNav){
@@ -30,7 +29,7 @@ namespace BuckShotCompiler
         public static void CheckCommand(string Command,string File, List<string> CommandHistory, int HistoryNav){
             string Line = "";
             if(Command == ""){
-                Console.WriteLine("Entrez une commande");
+                Console.WriteLine("Waiting for user input");
             }else{
                 Line = Command;
                 foreach(char CurrentChar in Command){

@@ -17,3 +17,4 @@ page Home
 	LocalContentBox = new ContentBox
 	LocalContentBox.top = 800px
 end
+

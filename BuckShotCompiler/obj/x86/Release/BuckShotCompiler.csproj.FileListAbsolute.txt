@@ -1,0 +1,3 @@
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/bin/Release/BuckShotCompiler.exe
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/obj/x86/Release/BuckShotCompiler.csproj.CoreCompileInputs.cache
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/obj/x86/Release/BuckShotCompiler.exe

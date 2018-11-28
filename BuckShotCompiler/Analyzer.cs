@@ -5,7 +5,7 @@ namespace BuckShotCompiler
 {
     public static class Analyzer
     {
-		public static bool WOFunc(string[] Words, WebObject CurrentObject)
+        public static bool WOFunc(string[] Words, WebObject.Base CurrentObject)
 		{
 			if (Tools.IsBasicFuntion(Words[1].Split('(')[0]))
 			{
@@ -20,7 +20,7 @@ namespace BuckShotCompiler
 			}
 		}
 
-		public static bool WOArray(string[] Words, WebObject CurrentObject)
+        public static bool WOArray(string[] Words, WebObject.Base CurrentObject )
 		{
 			if (Words[1].Length < 2)
 			{
@@ -30,7 +30,7 @@ namespace BuckShotCompiler
 			{
 				string LocalArguments = Words[1].Substring(1).Split(']')[0];
 				string[] LocalArgumentsArray = LocalArguments.Split(',');
-				WebObject CreatedObject = new WebObject(Words[0], CurrentObject.CurrentProject, CurrentObject.HTML_Path, CurrentObject.CSS_Path);
+                WebObject.Base CreatedObject = new WebObject.Base(Words[0], CurrentObject.CurrentProject, CurrentObject.HTML_Path, CurrentObject.CSS_Path);
 				foreach (string LocalData in LocalArgumentsArray)
 				{
 					CreatedObject.ArrayDatas.Add(LocalData);
@@ -44,24 +44,26 @@ namespace BuckShotCompiler
 			}
 		}
 
-        public static bool WOCheckForSousInstances(string[] Words,WebObject CurrentObject){
+        public static bool WOCheckForSousInstances(string[] Words,WebObject.Base CurrentObject )
+        {
 			if (Words[0].Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries).Length > 1)
 			{
 				string[] LocalWords = Words[0].Split(new string[] { "->" }, StringSplitOptions.RemoveEmptyEntries);
-                WebObject MasterObject = Tools.FindWebObjectByName(LocalWords[0], CurrentObject.CurrentProject.ObjectList);
-				List<WebObject> LoadedObjects = new List<WebObject>();
+                WebObject.Base MasterObject = Tools.FindWebObjectByName(LocalWords[0], CurrentObject.CurrentProject.ObjectList);
+                List<WebObject.Base> LoadedObjects = new List<WebObject.Base>();
 				LoadedObjects.Add(MasterObject);
 				for (int i = 1; i < LocalWords.Length; i++)
 				{
 					if (LocalWords[i].Split('.').Length > 1)
 					{
-						WebObject ChildObject = Tools.FindWebObjectByName(LocalWords[i].Split('.')[0], LoadedObjects[LoadedObjects.Count - 1].LocalObjectList);
-						Tools.SetObjectValue<CSSObject>(ChildObject.CSS, LocalWords[i].Split('.')[1], Words[1]);
-						Tools.SetObjectValue<HTMLObject>(ChildObject.HTML, LocalWords[i].Split('.')[1], Words[1]);
+                        WebObject.Base ChildObject = Tools.FindWebObjectByName(LocalWords[i].Split('.')[0], LoadedObjects[LoadedObjects.Count - 1].LocalObjectList);
+                        string PropName = LocalWords[i].Split('.')[1];
+                        Type LangType = CurrentObject.CurrentProject.LangTools.PropType(PropName);
+                        CurrentObject.CurrentProject.LangTools.SetLangObjectValue(LangType, CurrentObject, PropName, Words[1]);
 					}
 					else
 					{
-                        WebObject LocalObject = null;
+                        WebObject.Base LocalObject = null;
                         if(Words[1].Length > 3){
                             if(Words[1].Remove(3) == "new"){
                                 Console.WriteLine("Super coool :D " + Words[1].Substring(3) + LocalWords[i] + LocalWords[i-1]);
@@ -84,10 +86,11 @@ namespace BuckShotCompiler
             }
         }
 
-        public static bool WOCheckForPropSetting(string[] Words,WebObject CurrentObject){
+        public static bool WOCheckForPropSetting(string[] Words,WebObject.Base CurrentObject )
+        {
 			if (Words[0].Split('.').Length > 1)
 			{
-				WebObject ChildObject = Tools.FindWebObjectByName(Words[0].Split('.')[0], CurrentObject.LocalObjectList);
+                WebObject.Base ChildObject = Tools.FindWebObjectByName(Words[0].Split('.')[0], CurrentObject.LocalObjectList);
                 string CurrentValue = Tools.GetProcessedValue(Words[1], CurrentObject);
 				if (Words[0].Split('.')[1] == "link")
 				{
@@ -97,27 +100,26 @@ namespace BuckShotCompiler
 				{
                     ChildObject.HTML.PropertiesValue[3] = CurrentValue;
 				}
-                Tools.SetObjectValue<HTMLObject>(ChildObject.HTML, Words[0].Split('.')[1], CurrentValue);
-                Tools.SetObjectValue<CSSObject>(ChildObject.CSS, Words[0].Split('.')[1], CurrentValue);
+                string PropName = Words[0].Split('.')[1];
+                Type LangType = CurrentObject.CurrentProject.LangTools.PropType(PropName);
+                CurrentObject.CurrentProject.LangTools.SetLangObjectValue(LangType, ChildObject, PropName, CurrentValue);
                 return true;
             }else{
                 return false;
             }
         }
 
-        public static bool WOSetPropValueWithObjectValue(string[] Words, WebObject CurrentObject){
+        public static bool WOSetPropValueWithObjectValue(string[] Words, WebObject.Base CurrentObject ){
             if (Words[1].Split('.').Length > 1 && Char.IsLetter(Words[1].Split('.')[1][0]))
             {
                 string ObjName = Words[1].Split('.')[0];
                 string PropName = Words[1].Split('.')[1];
-                foreach (WebObject CurrentObj in CurrentObject.CurrentProject.ObjectList)
+                foreach (WebObject.Base CurrentObj in CurrentObject.CurrentProject.ObjectList)
                 {
                     if (CurrentObj.GetName() == ObjName)
                     {
-                        if (CurrentObject.CSS.IsCSS(PropName))
-                        {
-                            Tools.SetObjectValue(CurrentObject.CSS, Words[0], Tools.GetObjectValue<CSSObject>(CurrentObj.CSS, PropName));
-                        }
+                        Type LangType = CurrentObj.CurrentProject.LangTools.PropType(PropName);
+                        CurrentObj.CurrentProject.LangTools.SetLangObjectValue(LangType, CurrentObj, PropName, CurrentObj.CurrentProject.LangTools.GetLangObjectValue(LangType, CurrentObj, PropName));
                     }
                 }
                 return true;
@@ -126,7 +128,8 @@ namespace BuckShotCompiler
             }
         }
 
-        public static bool WOSetLink(string[] Words, WebObject CurrentObject){
+        public static bool WOSetLink(string[] Words, WebObject.Base CurrentObject)
+        {
 			if (Words[0] == "link")
 			{
                 CurrentObject.HTML.PropertiesValue[2] = Words[1];
@@ -136,7 +139,8 @@ namespace BuckShotCompiler
             }
         }
 
-        public static bool WOSetSource(string[] Words,WebObject CurrentObject){
+        public static bool WOSetSource(string[] Words,WebObject.Base CurrentObject)
+        {
 			if (Words[0] == "source")
 			{
                 CurrentObject.HTML.PropertiesValue[3] = Words[1];
@@ -146,17 +150,18 @@ namespace BuckShotCompiler
             }
         }
 
-        public static bool WONewObject(string[] Words, WebObject CurrentObject){
+        public static bool WONewObject(string[] Words, WebObject.Base CurrentObject)
+        {
 			if (Words[1].Length > 3)
 			{
 				if (Words[1].Remove(3) == "new")
 				{
-                    foreach (WebObject LocalCurrentObject in CurrentObject.CurrentProject.ObjectList)
+                    foreach (WebObject.Base LocalCurrentObject in CurrentObject.CurrentProject.ObjectList)
 					{
 						string MasterObjName = Words[1].Substring(3);
 						if (LocalCurrentObject.GetName() == MasterObjName)
 						{
-                            WebObject NewObject = Tools.CreateWebObject(Words[0], LocalCurrentObject, CurrentObject.HTML_Path, CurrentObject.CSS_Path);
+                            WebObject.Base NewObject = Tools.CreateWebObject(Words[0], LocalCurrentObject, CurrentObject.HTML_Path, CurrentObject.CSS_Path);
 							NewObject.ClassName = LocalCurrentObject.GetName();
                             CurrentObject.LocalObjectList.Add(NewObject);
 						}
@@ -164,8 +169,9 @@ namespace BuckShotCompiler
 				}
 				else
 				{
-					Tools.SetObjectValue<HTMLObject>(CurrentObject.HTML, Words[0], Words[1]);
-					Tools.SetObjectValue<CSSObject>(CurrentObject.CSS, Words[0], Words[1]);
+                    string PropName = Words[0];
+                    Type LangType = CurrentObject.CurrentProject.LangTools.PropType(PropName);
+                    CurrentObject.CurrentProject.LangTools.SetLangObjectValue(LangType, CurrentObject, PropName, Words[1]);
 				}
                 return true;
             }else{
@@ -173,9 +179,11 @@ namespace BuckShotCompiler
             }
         }
 
-        public static bool WOFinal(string[] Words, WebObject CurrentObject){
-            Tools.SetObjectValue<HTMLObject>(CurrentObject.HTML, Words[0], Words[1]);
-			Tools.SetObjectValue<CSSObject>(CurrentObject.CSS, Words[0], Words[1]);
+        public static bool WOFinal(string[] Words, WebObject.Base CurrentObject)
+        {
+            string PropName = Words[0];
+            Type LangType = CurrentObject.CurrentProject.LangTools.PropType(PropName);
+            CurrentObject.CurrentProject.LangTools.SetLangObjectValue(LangType, CurrentObject, PropName, Words[1]);
             return true;
         }
     }

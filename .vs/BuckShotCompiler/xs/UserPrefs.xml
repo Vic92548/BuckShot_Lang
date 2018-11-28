@@ -1,0 +1,16 @@
+﻿<Properties StartupConfiguration="{C853BC53-9D49-413D-9E82-A877E6A8B180}|Default">
+  <MonoDevelop.Ide.ItemProperties.BuckShotCompiler PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Source introuvable">
+    <Files>
+      <File FileName="BuckShotCompiler/LangObject/HTML.cs" Line="28" Column="1" />
+      <File FileName="BuckShotCompiler/LangObject/Tools.cs" Line="70" Column="14" />
+      <File FileName="Source introuvable" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

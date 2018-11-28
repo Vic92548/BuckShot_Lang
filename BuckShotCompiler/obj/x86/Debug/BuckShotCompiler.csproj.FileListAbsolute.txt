@@ -16,3 +16,9 @@
 /Users/victor/Library/Mobile Documents/com~apple~CloudDocs/BuckShot_Compiler/BuckShotCompiler/obj/x86/Debug/BuckShotCompiler.csproj.CoreCompileInputs.cache
 /Users/victor/Library/Mobile Documents/com~apple~CloudDocs/BuckShot_Compiler/BuckShotCompiler/obj/x86/Debug/BuckShotCompiler.exe
 /Users/victor/Library/Mobile Documents/com~apple~CloudDocs/BuckShot_Compiler/BuckShotCompiler/obj/x86/Debug/BuckShotCompiler.pdb
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/obj/x86/Debug/BuckShotCompiler.csprojAssemblyReference.cache
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/obj/x86/Debug/BuckShotCompiler.csproj.CoreCompileInputs.cache
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/obj/x86/Debug/BuckShotCompiler.exe
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/obj/x86/Debug/BuckShotCompiler.pdb
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/bin/Debug/BuckShotCompiler.exe
+/Users/victorpro/Documents/GitHub/BuckShot_Lang/BuckShotCompiler/bin/Debug/BuckShotCompiler.pdb

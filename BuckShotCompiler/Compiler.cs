@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 namespace BuckShotCompiler
 {
     public class Compiler
@@ -36,7 +37,7 @@ namespace BuckShotCompiler
             this.CSS_Path = FileNamePath + ConfigLines[1].Split('=')[1];
             VerifyFolder(this.CSS_Path);
 			bool Started = false;
-            WebObject CurrentObject = new WebObject("default", CurrenProject, "","");
+            WebObject.Base CurrentObject = new WebObject.Base("default", CurrenProject, "","");
             FileLines = new List<string>();
             AddFileLines(FileText,FileNamePath);
             for (int i = 0; i < FileLines.Count; i++)
@@ -45,21 +46,21 @@ namespace BuckShotCompiler
 
                 if (LinesWords[0] == "page")
 				{
-                    CurrentObject = new page(LinesWords[1], CurrenProject, HTML_Path, CSS_Path);
+                    CurrentObject = new WebObject.Page(LinesWords[1], CurrenProject, HTML_Path, CSS_Path);
 					Started = true;
 				}
 				else if (LinesWords[0] == "object")
 				{
                     if(LinesWords[1].Split(':').Length > 1){
                         string[] LocalWords = LinesWords[1].Split(':');
-                        CurrentObject = new WebObject(LocalWords[0], CurrenProject, HTML_Path, CSS_Path);
-                        foreach(WebObject LocalObject in CurrenProject.ObjectList){
+                        CurrentObject = new WebObject.Base(LocalWords[0], CurrenProject, HTML_Path, CSS_Path);
+                        foreach(WebObject.Base LocalObject in CurrenProject.ObjectList){
                             if(LocalObject.GetName() == LocalWords[1]){
                                 CurrentObject.CSS.SetAllProp(LocalObject,LocalObject.CSS.GetAllProp());
                             }
                         }
                     }else{
-                        CurrentObject = new WebObject(LinesWords[1], CurrenProject, HTML_Path, CSS_Path);
+                        CurrentObject = new WebObject.Base(LinesWords[1], CurrenProject, HTML_Path, CSS_Path);
                     }
 					Started = true;
 				}
@@ -89,8 +90,19 @@ namespace BuckShotCompiler
 				string[] LinesWords = FileText[i].Split(' ');
 				if (LinesWords[0] == "include")
 				{
-                    string[] DataToInclude = System.IO.File.ReadAllLines(Path + '/' + LinesWords[1]);
-                    AddFileLines(DataToInclude, Path);
+                    if(LinesWords[1].Split('.').Length > 1){
+                        string[] DataToInclude = System.IO.File.ReadAllLines(Path + '/' + LinesWords[1]);
+                        AddFileLines(DataToInclude, Path);
+                    }else{
+
+                        foreach (string LocalFile in System.IO.Directory.GetFiles(Path + '/' + LinesWords[1])){
+                            if(LocalFile.Split('.')[1] == "bk"){
+                                string[] DataToInclude = System.IO.File.ReadAllLines(LocalFile);
+                                AddFileLines(DataToInclude, Path);
+                            }
+                        }
+                    }
+
                 }else if(LinesWords[0] == "include_all"){
                     List<string> BrutDataToInclude = new List<string>();
                     List<string> FilesName = SyntaxTools.GetFunctionDatas(LinesWords[1]);

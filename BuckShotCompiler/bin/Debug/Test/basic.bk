@@ -1,0 +1,17 @@
+object Title
+	type = h1
+	content = Hello
+end
+
+object text
+	type = p
+	content = Hello
+	background_color = red
+end
+
+object Array
+	type = div
+	textA = new text
+	textA.background_color = blue
+	textB = new text
+end

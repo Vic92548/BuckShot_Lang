@@ -6,9 +6,10 @@ namespace BuckShotCompiler
 {
     public class WebProject
     {
-        public List<WebObject> ObjectList = new List<WebObject>();
+        public List<WebObject.Base> ObjectList = new List<WebObject.Base>();
         private WebDataStruct LocalData = new WebDataStruct();
         public Stopwatch ProjectStopWatch = new Stopwatch();
+        public LangObject.Tools LangTools = new LangObject.Tools();
         public WebProject()
         {
             this.LocalData.ChildsData = new List<WebDataStruct>();
